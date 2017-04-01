@@ -1,0 +1,14 @@
+opt_in_rules:
+  - sorted_imports
+
+disabled_rules:
+  - type_name
+  - identifier_name
+
+excluded:
+  - Carthage
+
+force_cast: warning
+force_try: warning
+
+line_length: 240
