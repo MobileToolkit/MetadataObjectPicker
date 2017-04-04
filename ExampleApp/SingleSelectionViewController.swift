@@ -57,6 +57,12 @@ class SingleSelectionViewController: UIViewController {
 
 }
 
+extension SingleSelectionViewController: MetadataObjectPickerDelegate {
+    func metadataObjectPicker(_ metadataObjectPicker: MetadataObjectPicker, didSelectedMetadataObject metadataObject: AVMetadataObject) {
+        print("didSelectedMetadataObject metadataObject: \(metadataObject)")
+    }
+}
+
 //extension ScanQRViewController: AVMetadataObjectSelectorDelegate {
 //    func selectedMetadataObject(_ metadataObject: AVMetadataObject) {
 //        if let qr = metadataObject as? AVMetadataMachineReadableCodeObject {

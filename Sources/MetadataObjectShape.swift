@@ -10,61 +10,29 @@ import AVFoundation
 import Foundation
 import UIKit
 
-class MetadataObjectShape {
-    let metadataObject: AVMetadataObject
+public protocol MetadataObjectShape {
+    var color: UIColor { get }
 
-    var color: CGColor
+    var selected: Bool { get }
 
-    var selected: Bool = false
+    var shapeLayer: CALayer { get }
 
-    var outlineLayer: CALayer {
-        outline.path = createCGPath(points: extractPoints(metadataMachineReadableCodeObject: metadataMachineReadableCodeObject))
-        outline.strokeColor = color
-        outline.fillColor = selected ? outline.strokeColor : UIColor.clear.cgColor
+    var metadataObject: AVMetadataObject { get }
 
-        return outline
-    }
+    init(metadataObject: AVMetadataObject, color: UIColor)
 
-    fileprivate var metadataMachineReadableCodeObject: AVMetadataMachineReadableCodeObject?
+    func isEqual(to anotherMetadataObject: AVMetadataObject) -> Bool
+}
 
-    fileprivate var outline: CAShapeLayer = {
-        let layer = CAShapeLayer()
-        layer.lineWidth = 2.0
-        layer.fillColor = UIColor.clear.cgColor
+extension MetadataObjectShape {
+    var selectedColor: UIColor {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0.25
 
-        return layer
-    }()
+        self.color.getRed(&red, green: &green, blue: &blue, alpha: nil)
 
-    init(metadataObject: AVMetadataObject, color: CGColor) {
-        self.metadataObject = metadataObject
-        self.color = color
-
-        if let metadataObject = metadataObject as? AVMetadataMachineReadableCodeObject {
-            metadataMachineReadableCodeObject = metadataObject
-        }
-    }
-
-    // MARK: - Private methods
-
-    fileprivate func extractPoints(metadataMachineReadableCodeObject: AVMetadataMachineReadableCodeObject?) -> [CGPoint]? {
-        return (metadataMachineReadableCodeObject?.corners as? [NSDictionary])?.map({ CGPoint(dictionaryRepresentation: $0)! }) ?? nil
-    }
-
-    fileprivate func createCGPath(points: [CGPoint]?) -> CGPath? {
-        if let points = points {
-            let bezierPath = UIBezierPath()
-
-            let firstCornerPoint = points.first!
-
-            bezierPath.move(to: firstCornerPoint)
-
-            points.filter({ $0 != points.first! }).forEach({ bezierPath.addLine(to: $0) })
-
-            bezierPath.addLine(to: firstCornerPoint)
-
-            return bezierPath.cgPath
-        }
-
-        return nil
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
 }

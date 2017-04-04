@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+require 'open3'
+require 'yaml'
+
+config_file_name = ARGV[0] || '.requirements.yml'
+
+config = YAML::load_file(File.join(__dir__, config_file_name))
+
+requirements = config['requirements']
+definitions = config['definitions']
+
+puts 'Checking requirements....'
+
+result = true
+
+requirements.each_pair do |key, value|
+  name = definitions[key]['name']
+  command = definitions[key]['command']
+
+  stdout, stderr, status = Open3.capture3(command)
+
+  if status.success?
+    local_version = stdout.strip
+    result = result && local_version == value
+
+    print " *** Valid #{name} version found: #{local_version}\n" if result
+    print " *** Invalid #{name} version found: #{local_version}, expected version: #{value}\n" unless result
+  end
+end
+
+exit result ? 0 : 1

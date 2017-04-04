@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E90EB7AE1E9312B0004B7769 /* MetadataMachineReadableCodeObjectShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90EB7AD1E9312B0004B7769 /* MetadataMachineReadableCodeObjectShape.swift */; };
+		E90EB7B01E931E7C004B7769 /* MetadataFaceObjectShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E90EB7AF1E931E7C004B7769 /* MetadataFaceObjectShape.swift */; };
 		E9C7013D1E8DCC4200D045A1 /* MetadataObjectPicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9C701331E8DCC4200D045A1 /* MetadataObjectPicker.framework */; };
 		E9C701421E8DCC4200D045A1 /* MetadataObjectPickerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C701411E8DCC4200D045A1 /* MetadataObjectPickerTests.swift */; };
 		E9C701441E8DCC4300D045A1 /* AVMetadataObjectPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = E9C701361E8DCC4200D045A1 /* AVMetadataObjectPicker.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -54,6 +56,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E90EB7AD1E9312B0004B7769 /* MetadataMachineReadableCodeObjectShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataMachineReadableCodeObjectShape.swift; sourceTree = "<group>"; };
+		E90EB7AF1E931E7C004B7769 /* MetadataFaceObjectShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetadataFaceObjectShape.swift; sourceTree = "<group>"; };
 		E9C701331E8DCC4200D045A1 /* MetadataObjectPicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MetadataObjectPicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9C701361E8DCC4200D045A1 /* AVMetadataObjectPicker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AVMetadataObjectPicker.h; sourceTree = "<group>"; };
 		E9C701371E8DCC4200D045A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 				E9C701371E8DCC4200D045A1 /* Info.plist */,
 				E9C7014B1E8DCDFC00D045A1 /* MetadataObjectPicker.swift */,
 				E9C701891E8E6AD300D045A1 /* MetadataObjectShape.swift */,
+				E90EB7AD1E9312B0004B7769 /* MetadataMachineReadableCodeObjectShape.swift */,
+				E90EB7AF1E931E7C004B7769 /* MetadataFaceObjectShape.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -171,6 +177,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9C701451E8DCC4300D045A1 /* Build configuration list for PBXNativeTarget "MetadataObjectPicker" */;
 			buildPhases = (
+				E916A4A91E9153BC00D0C221 /* Requirements check */,
 				E9C701861E8DCF2500D045A1 /* SwiftLint */,
 				E9C7012E1E8DCC4200D045A1 /* Sources */,
 				E9C7012F1E8DCC4200D045A1 /* Frameworks */,
@@ -208,6 +215,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9C701781E8DCE9A00D045A1 /* Build configuration list for PBXNativeTarget "ExampleApp" */;
 			buildPhases = (
+				E916A4A01E90829C00D0C221 /* Requirements check */,
+				E916A4A11E9082BE00D0C221 /* SwiftLint */,
 				E9C7014D1E8DCE9A00D045A1 /* Sources */,
 				E9C7014E1E8DCE9A00D045A1 /* Frameworks */,
 				E9C7014F1E8DCE9A00D045A1 /* Resources */,
@@ -298,6 +307,48 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		E916A4A01E90829C00D0C221 /* Requirements check */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Requirements check";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ${CONFIGURATION} = \"Debug\" ]; then\n    ./check_requirements .requirements-debug.yml\nelse\n    ./check_requirements\nfi";
+		};
+		E916A4A11E9082BE00D0C221 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ${CONFIGURATION} = \"Debug\" ]; then\n    if which swiftlint >/dev/null; then\n        swiftlint\n    else\n        echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n    fi\nfi";
+		};
+		E916A4A91E9153BC00D0C221 /* Requirements check */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Requirements check";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ${CONFIGURATION} = \"Debug\" ]; then\n    ./check_requirements .requirements-debug.yml\nelse\n    ./check_requirements\nfi";
+		};
 		E9C701861E8DCF2500D045A1 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -319,7 +370,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E90EB7B01E931E7C004B7769 /* MetadataFaceObjectShape.swift in Sources */,
 				E9C7014C1E8DCDFC00D045A1 /* MetadataObjectPicker.swift in Sources */,
+				E90EB7AE1E9312B0004B7769 /* MetadataMachineReadableCodeObjectShape.swift in Sources */,
 				E9C7018A1E8E6AD300D045A1 /* MetadataObjectShape.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

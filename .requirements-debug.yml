@@ -1,0 +1,11 @@
+requirements:
+#  carthage: '0.20.1'
+  swiftlint: '0.17.0'
+
+definitions:
+#  carthage:
+#    name: 'Carthage'
+#    command: 'carthage version'
+  swiftlint:
+    name: 'SwiftLint'
+    command: 'swiftlint version'
