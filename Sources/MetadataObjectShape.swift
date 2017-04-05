@@ -29,10 +29,9 @@ extension MetadataObjectShape {
         var red: CGFloat = 0
         var green: CGFloat = 0
         var blue: CGFloat = 0
-        var alpha: CGFloat = 0.25
 
         self.color.getRed(&red, green: &green, blue: &blue, alpha: nil)
 
-        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+        return UIColor(red: red, green: green, blue: blue, alpha: 0.25)
     }
 }

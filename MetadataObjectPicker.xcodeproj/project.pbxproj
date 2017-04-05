@@ -347,7 +347,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ ${CONFIGURATION} = \"Debug\" ]; then\n    ./check_requirements .requirements-debug.yml\nelse\n    #./check_requirements\nfi";
+			shellScript = "if [ ${CONFIGURATION} = \"Debug\" ]; then\n    ./check_requirements .requirements-debug.yml\n#else\n#./check_requirements\nfi";
 		};
 		E9C701861E8DCF2500D045A1 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
