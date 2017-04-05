@@ -23,8 +23,6 @@ public class MetadataObjectPicker: NSObject {
         case multi
     }
 
-//    public var debug = false
-
     public var view: UIView
 
     fileprivate var previewLayer: AVCaptureVideoPreviewLayer
@@ -60,26 +58,23 @@ public class MetadataObjectPicker: NSObject {
     func handleTap(_ gestureRecognizer: UIGestureRecognizer) {
         selectedMetadataObject = shapes.filter({ $0.metadataObject.bounds.contains(gestureRecognizer.location(in: self.view)) }).map({ $0.metadataObject }).first
 
+        #if DEBUG
+            print("selectedMetadataObject: \(String(describing: selectedMetadataObject))")
+        #endif
+
         delegate?.metadataObjectPicker(self, didSelectedMetadataObject: selectedMetadataObject!)
 
-//        for shape in self.shapes {
-//            if shape.metadataObject.bounds.contains(gestureRecognizer.location(in: self.view)) {
-//                //                print("selected: \(shape)")
-//
-//                delegate?.selectedMetadataObject(shape.metadataObject)
-//
-//                break
-//            }
-//        }
+        selectedMetadataObject = nil
     }
 
     fileprivate func render(metadataObjects: [AVMetadataObject]) {
-//        if debug {
-//            print("metadataObjects: \(metadataObjects.count)")
-//            metadataObjects.forEach { print("metadataObject: \($0)") }
-//        }
+        #if DEBUG
+            print("metadataObjects: \(metadataObjects.count)")
+            metadataObjects.forEach { print("metadataObject: \($0)") }
+        #endif
 
-        clear()
+        shapes.removeAll()
+        colorIndex = 0
 
         metadataObjects.forEach { metadataObject in
             if let transformedMetadataObject = previewLayer.transformedMetadataObject(for: metadataObject) as? AVMetadataMachineReadableCodeObject {
@@ -107,21 +102,10 @@ public class MetadataObjectPicker: NSObject {
             }
         }
 
-//        shapes.append(contentsOf: metadataObjects.map({ MetadataMachineReadableCodeObjectShape(metadataObject: previewLayer.transformedMetadataObject(for: $0), color: nextColor) }))
-
-//        metadataObjects.forEach { metadataObject in
-//            shapes.append(MetadataObjectShape(metadataObject: previewLayer.transformedMetadataObject(for: metadataObject), color: colors[nextColorIndex]))
-//        }
-
         DispatchQueue.main.async {
             self.view.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
             self.shapes.forEach { self.view.layer.addSublayer($0.shapeLayer) }
         }
-    }
-
-    fileprivate func clear() {
-        shapes.removeAll()
-        colorIndex = 0
     }
 
 }
@@ -132,23 +116,6 @@ extension MetadataObjectPicker: AVCaptureMetadataOutputObjectsDelegate {
         if let objects = metadataObjects as? [AVMetadataObject] {
             render(metadataObjects: objects)
         }
-
-//        metadataObjects.forEach { metadataObject in
-//            print("metadataObject: \(metadataObject)")
-//
-////            if let qr = metadataObject as? AVMetadataMachineReadableCodeObject {
-////                print("metadataObject: \(metadataObject)")
-////            }
-//        }
-
-//        print("metadataObjects: \(metadataObjects)")
-//
-//        if let qr = metadataObject as? AVMetadataMachineReadableCodeObject {
-//            dismiss(animated: true, completion: { () -> Void in
-//                self.delegate?.scannedCode(qr.stringValue)
-//                return
-//            })
-//        }
     }
 
 }

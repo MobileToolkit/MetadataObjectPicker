@@ -35,6 +35,7 @@ class SingleSelectionViewController: UIViewController {
             view.layer.addSublayer(previewLayer)
 
             metadataObjectPicker = MetadataObjectPicker(previewLayer: previewLayer)
+            metadataObjectPicker.delegate = self
             view.addSubview(metadataObjectPicker.view)
 
             output.setMetadataObjectsDelegate(metadataObjectPicker, queue: DispatchQueue.global())
@@ -62,14 +63,3 @@ extension SingleSelectionViewController: MetadataObjectPickerDelegate {
         print("didSelectedMetadataObject metadataObject: \(metadataObject)")
     }
 }
-
-//extension ScanQRViewController: AVMetadataObjectSelectorDelegate {
-//    func selectedMetadataObject(_ metadataObject: AVMetadataObject) {
-//        if let qr = metadataObject as? AVMetadataMachineReadableCodeObject {
-//            dismiss(animated: true, completion: { () -> Void in
-//                self.delegate?.scannedCode(qr.stringValue)
-//                return
-//            })
-//        }
-//    }
-//}
